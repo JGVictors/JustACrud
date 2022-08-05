@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>JustACrud - [[${tituloDaPagina}]]</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+</head>
+<body>
+<div class="container text-center mt-3">
+
+  <h1>[[${tituloDaPagina}]]</h1>
+  <a class="h4" th:href="@{/funcionarios}">Voltar a Lista de Funcionários</a>
+  <br>
+
+  <div th:if="${message}" class="alert alert-secondary alert-dismissible show mt-3 py-1 col-6 mx-auto" role="alert">
+    [[${message}]]
+    <button type="button" class="btn-close py-2" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+
+  <form th:action="${createForm} ? @{/funcionarios/novo} : @{/funcionarios/editar}" method="POST" th:object="${funcionario}" class="card text-start mt-3 mx-auto col-6 text-bg-light p-3">
+    <div>
+      <input type="hidden" th:if="${updateForm}" th:field="*{registro}">
+      <div th:if="${createForm}" class="mb-3">
+        <label for="fRegistro" class="form-label">Registro</label>
+        <input type="number" th:field="*{registro}" class="form-control" id="fRegistro" placeholder="104572" min="0" required>
+      </div>
+      <div class="mb-3">
+        <label for="fNome" class="form-label">Nome</label>
+        <input type="text" th:field="*{nome}" class="form-control" id="fNome" placeholder="Maria Alice da Silva" required>
+      </div>
+      <div class="mb-3">
+        <label for="fEmail" class="form-label">E-Mail</label>
+        <input type="email" th:field="*{email}" class="form-control" id="fEmail" placeholder="ma.silva@hotmail.com" required>
+      </div>
+      <div class="mb-3">
+        <label for="fNome" class="form-label">Telefone</label>
+        <input type="text" th:field="*{telefone}" class="form-control" id="fTelefone" placeholder="11 9 9999-9999" required>
+      </div>
+      <div class="mb-3">
+        <label for="fSalario" class="form-label">Salário</label>
+        <input type="number" th:field="*{salario}" step="0.01" class="form-control" id="fSalario" placeholder="R$ 4231,43" min="0" required>
+      </div>
+      <div th:if="${createForm}" class="text-end">
+        <button type="submit" class="btn btn-primary">Adicionar</button>
+      </div>
+      <div th:if="${updateForm}" class="text-end">
+        <button type="submit" class="btn btn-primary">Atualizar</button>
+      </div>
+    </div>
+  </form>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
